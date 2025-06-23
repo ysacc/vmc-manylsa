@@ -1,7 +1,22 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import {
+  IonApp,
+  IonRouterOutlet,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+  setupIonicReact,
+} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { home, personAdd, calendar, create } from 'ionicons/icons';
+
 import Home from './pages/Home';
+import NuevoAlumno from './pages/NuevoAlumno';
+import ProgramacionMensual from './pages/ProgramacionMensual';
+import AsignarAlumno from './pages/AsignarAlumno';
+import EditarAlumno from './pages/EditarAlumno';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,19 +48,44 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 
+
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route path="/home" component={Home} exact />
+          <Route path="/nuevo" component={NuevoAlumno} exact />
+          <Route path="/editar" component={EditarAlumno} exact />
+          <Route path="/programacion" component={ProgramacionMensual} exact />
+          <Route path="/asignar" component={AsignarAlumno} exact />
+          <Redirect exact from="/" to="/home" />
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home} />
+            <IonLabel>Inicio</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="nuevo" href="/nuevo">
+            <IonIcon icon={personAdd} />
+            <IonLabel>Estudiante</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="editar" href="/editar">
+            <IonIcon icon={personAdd} />
+            <IonLabel>Editar</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="programacion" href="/programacion">
+            <IonIcon icon={calendar} />
+            <IonLabel>Mes</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="asignar" href="/asignar">
+            <IonIcon icon={create} />
+            <IonLabel>Asignar</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
     </IonReactRouter>
   </IonApp>
 );
